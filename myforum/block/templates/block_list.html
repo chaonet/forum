@@ -3,15 +3,30 @@
   <head>
   	<meta charset="utf-8">
   	<title>Python 部落论坛</title>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   </head>
+
   <body>
-  	<h1>Python 部落论坛</h1>
-  	{% for b in blocks %}
-  	<div class="blockItem">
-  	  {{ b.name }}
-  	  {{ b.desc }}
-  	  {{ b.admin.username }}
-  	</div>
-  	{% endfor %}
+  	<div class="container">
+    <div class="page-header">
+      <center>
+       <h1>Python 部落论坛</h1>
+      </center>
+     </div>
+    </div>
+
+	<div class="container">
+	  	{% for b in blocks %}
+	  	<div class="row">
+  		  <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3"></div>
+	  	    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 well">
+	  	      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><h3>{{ b.name }}</h3><br><p>{{ b.desc }}</p></div>
+	  	      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">管理员：{{ b.admin.username }}</div>
+	  	    </div>
+	  	</div>
+
+	  	{% endfor %}
+	</div>
+
   </body>
 </html>
