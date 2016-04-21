@@ -16,4 +16,4 @@ class Block(models.Model):
 	last_update_timestamp = models.DateTimeField(u"最后更新时间", auto_now=True)
 
 	def __unicode__(self):
-		return self.block_name
+		return self.name
