@@ -14,27 +14,29 @@
 	    </div>
       </div>
 
-	  {% for b in blocks %}
 	  <div class="row">
   	    <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
   	    &nbsp;
   		</div>
 		<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
+	      {% for b in blocks %}
 		  <div class="panel panel-default">
 		    <div class="panel-heading">
-		      <a href="" style="font-size:18px;">{{ b.name }}</a>
+		      <a href={% url 'article_list' b.id %} style="font-size:18px;">{{ b.name }}</a>
 		      <span class="pull-right">管理员：{{ b.admin.username }}</span>
 		    </div>
 		    <div class="panel-body">
 		      {{ b.desc }}
 		    </div>
 		  </div>
+	      {% endfor %}
 	    </div>
+
   	    <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
   	    &nbsp;
   	    </div>
 	  </div>
-	  {% endfor %}
+
     </div>
 
   </body>

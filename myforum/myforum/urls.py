@@ -16,7 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from block.views import block_list
+from article.views import article_list
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', "block.views.block_list")
+    url(r'^$', block_list,name='block_list'),
+    url(r'^articles/list/(?P<block_id>[0-9]+)/$', article_list, name = 'article_list'),
 ]

@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  	<title>Python 部落论坛</title>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  </head>
+
+  <body>
+  	<div class="container">
+
+  	  <div class='row"'>
+	    <div class="page-header">
+	      <center><h1>Python 部落论坛</h1></center>
+	    </div>
+      </div>
+
+
+	    <div class="row">
+  	    <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
+  	      &nbsp;
+  		  </div>
+
+  		  <div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
+  		    <ul class="breadcrumb">
+  		      <li><a href="{% url 'block_list' %}">首页</a></li>
+  		      <li>{{ block.name }}</li>
+  		    </ul>
+  		    <table class="table table-bordered">
+  		      <tr>
+  		        <th>状态</th>
+  		       	<th>标题</th>
+  		      	<th>作者</th>
+  		    	  <th>最后更新时间</th>
+  		      </tr>
+	  	      {% for a in articles %}
+	  	      <tr>
+	  	      	<th>{{ a.get_status_display }}</th>
+	  	      	<th>{{ a.title }}</th>
+	  	      	<th>{{ a.owner }}</th>
+	  	      	<th>{{ a.last_update_timestamp|date:"Y-m-d P" }}</th>
+	  	      </tr>
+	          {% endfor %}
+	        </table>
+	      </div>
+
+  	    <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
+  	    &nbsp;
+  	    </div>
+        
+	    </div>
+    </div>
+
+  </body>
+</html>
