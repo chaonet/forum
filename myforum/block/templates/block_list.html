@@ -1,24 +1,7 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-  	<title>Python 部落论坛</title>
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  </head>
+{% extends "base.html" %}
 
-  <body>
-  	<div class="container">
-  	  <div class='row"'>
-	    <div class="page-header">
-	      <center><h1>Python 部落论坛</h1></center>
-	    </div>
-      </div>
-
-	  <div class="row">
-  	    <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
-  	    &nbsp;
-  		</div>
-		<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
+          {% block content %}
+          
 	      {% for b in blocks %}
 		  <div class="panel panel-default">
 		    <div class="panel-heading">
@@ -30,14 +13,5 @@
 		    </div>
 		  </div>
 	      {% endfor %}
-	    </div>
-
-  	    <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
-  	    &nbsp;
-  	    </div>
-	  </div>
-
-    </div>
-
-  </body>
-</html>
+   
+          {% endblock %}
