@@ -17,3 +17,6 @@ class Block(models.Model):
 
 	def __unicode__(self):
 		return self.name
+
+	class Meta: # 表的元属性
+		verbose_name_plural = u"版块"
