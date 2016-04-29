@@ -3,9 +3,12 @@
           {% block content %}
           
   		    <ul class="breadcrumb">
-  		      <li><a href="{% url 'block_list' %}">首页</a></li>
-  		      <li>{{ block.name }}</li>
+  		      <li><a href={% url 'block_list' %}>首页</a></li>
+  		      <li>{{ b.name }}</li>
   		    </ul>
+          <a href={% url 'article_create' b.id %} class="btn btn-primary btn-sm active">发表文章</a>
+          <br />
+          <br />
   		    <table class="table table-bordered">
   		      <tr>
   		        <th>状态</th>
