@@ -7,6 +7,13 @@
   		      <li><a href={% url 'article_list' b.id %}>{{ b.name }}</a></li>
   		      <li>发表文章</li>
   		    </ul>
+  		    {% if messages %}
+			<ul class="messages">
+			    {% for message in messages %}
+			    	{{ message }}
+			    {% endfor %}
+			</ul>
+			{% endif %}
 			<form method="POST" action="" >{% csrf_token %}
 			  <div class="form-group">
 			    <label for="title">标题</label>

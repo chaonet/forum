@@ -9,6 +9,13 @@
           <a href={% url 'article_create' b.id %} class="btn btn-primary btn-sm active">发表文章</a>
           <br />
           <br />
+          {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+                {{ message }}
+              {% endfor %}
+          </ul>
+          {% endif %}
   		    <table class="table table-bordered">
   		      <tr>
   		        <th>状态</th>
