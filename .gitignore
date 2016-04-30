@@ -58,7 +58,7 @@ docs/_build/
 target/
 .env
 
-db_*
+db.*
 app_*
 app.db
 tmp/*
