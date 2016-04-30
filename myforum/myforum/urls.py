@@ -17,12 +17,9 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from block.views import block_list
-# from article.views import article_list,article_create
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', block_list,name='block_list'),
     url(r'^article/',include('article.urls')),
-    # url(r'^article/list/(?P<block_id>[0-9]+)/$', article_list, name = 'article_list'),
-    # url(r'^article/create/(?P<block_id>[0-9]+)/$', article_create, name = 'article_create'),
 ]

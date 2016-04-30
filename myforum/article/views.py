@@ -25,10 +25,15 @@ def article_create(request,block_id):
         title = request.POST["title"].strip()
         content = request.POST["content"].strip()
         if not request.POST["title"] or not request.POST["content"]:
-            return render(request, "article_create.html", {"b":block,'title':title,'article_content':content},context_instance = context_instance)
+            return render(request, "article_create.html", {"b":block,'title':title,'article_content':content})
         owner = User.objects.all()[0] # TODO:
         request.POST["title"].strip()  # request 对象，字典
         request.POST["content"].strip()
         new_article = Article(block=block,owner=owner,title=title,content=content)
         new_article.save()
         return redirect(reverse('article_list',args=[block.id]))
+
+def article_detail(request,article_id):
+    article_id = int(article_id)
+    article = Article.objects.get(id=article_id)
+    return render(request, "article_detail.html", {"article":article})

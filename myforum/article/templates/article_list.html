@@ -19,7 +19,7 @@
 	  	      {% for a in articles %}
 	  	      <tr>
 	  	      	<th>{{ a.get_status_display }}</th>
-	  	      	<th>{{ a.title }}</th>
+	  	      	<th><a href={% url 'article_detail' a.id %}>{{ a.title }}</a></th>
 	  	      	<th>{{ a.owner }}</th>
 	  	      	<th>{{ a.last_update_timestamp|date:"Y-m-d P" }}</th>
 	  	      </tr>
