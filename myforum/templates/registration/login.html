@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+          {% block content %}
+          
+  		    <ul class="breadcrumb">
+  		      <li><a href={% url 'block_list' %}>首页</a></li>
+            <li>登陆</li>
+  		    </ul>
+              
+          {% if form.error %}
+          <ul class="messages">
+              {% for message in form.error %}
+                {{ message }}
+              {% endfor %}
+          </ul>
+          {% endif %}
+
+          <form method="POST" action="" >{% csrf_token %}
+            <div class="form-group">
+              <label for="username">用户名</label>
+              <input type="text" class="form-control" name="username" >
+              <input type='hidden' name='next' value='{{ next }}'/>
+            </div>
+            <div class="form-group">
+              <label for="password">密码</label>
+              <input type="password" class="form-control" name="password" >
+            </div>
+            <button type="submit" class="btn btn-default">登陆</button>
+          </form>
+          
+          {% endblock %}

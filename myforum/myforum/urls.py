@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', block_list,name='block_list'),
     url(r'^article/',include('article.urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
