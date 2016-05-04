@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'^$', block_list,name='block_list'),
     url(r'^article/',include('article.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^logout/$', 'django.contrib.auth.views.logout_then_login',{'login_url':''},name='logout_then_login'),
+    url(r'^usercenter/', include('usercenter.urls')),
 ]

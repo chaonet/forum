@@ -57,7 +57,7 @@ docs/_build/
 # PyBuilder
 target/
 .env
-myforum/db.sqlite3
+*/db.sqlite3
 db.*
 app_*
 app.db
