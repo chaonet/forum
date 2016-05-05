@@ -67,3 +67,4 @@ requirements/*
 # virtualenvs
 venv-*/
 
+*/*/secret.py
