@@ -28,7 +28,6 @@ def register(request):
             error = u'字段不能空'
         if error:
         	messages.add_message(request, messages.INFO, error)
-        	# return render(request, "usercenter_register.html", {'username':username,'email':email})
         	return redirect(reverse('usercenter_register'))
 
         new_user = User.objects.create_user(username=username,password=password,email=email)
@@ -42,7 +41,6 @@ def register(request):
 
         activate_url = "http://%s%s" % (request.get_host(),reverse("usercenter_activate",args=[new_code]))
         send_mail(u'激活邮件', u'你的激活链接为: %s'%activate_url, '592510474@qq.com' ,[email], fail_silently=False)
-        # messages.add_message(request, messages.INFO, u'已发送激活邮件到您的注册邮箱，请点击进行激活')
         return redirect(reverse('login'))
 
 def activate(request,new_code):
@@ -52,9 +50,6 @@ def activate(request,new_code):
 		code_record.owner.is_active = True
 		code_record.owner.save()
 		return HttpResponse(u'激活成功，请登录')
-	# 	messages.add_message(request, messages.INFO, u'激活成功，请登录')
-	# else:
-	# 	messages.add_message(request, messages.INFO, u'激活失败')
-	# return redirect(reverse('login'))
-
+	else:
+		return HttpResponse(u'激活失败')
 

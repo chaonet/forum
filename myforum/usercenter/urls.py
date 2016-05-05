@@ -6,5 +6,4 @@ from views import register, activate
 urlpatterns = [
     url(r'register/$', register ,name='usercenter_register'),
     url(r'activate/(?P<new_code>[0-9a-f]{32})/$', activate ,name='usercenter_activate'),
-    # url(r'^logout/', include('django.contrib.auth.urls'),name='logout'),
 ]
