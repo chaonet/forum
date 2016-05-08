@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DEFAULT_FROM_EMAIL = "592510474@qq.com"
+
 LOGIN_REDIRECT_URL='/'
 
 EMAIL_HOST = "smtp.qq.com"
