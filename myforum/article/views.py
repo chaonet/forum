@@ -28,8 +28,7 @@ def article_create(request,block_id):
         if not request.POST["title"] or not request.POST["content"]:
             messages.add_message(request, messages.INFO, u'标题和内容不能空！')
             return render(request, "article_create.html", {"b":block,'title':title,'article_content':content})
-        owner = User.objects.all()[0] # TODO:
-        new_article = Article(block=block,owner=owner,title=title,content=content)
+        new_article = Article(block=block,owner=request.user,title=title,content=content)
         new_article.save()
         messages.add_message(request, messages.INFO, u'发表成功！')
         return redirect(reverse('article_list',args=[block.id]))
