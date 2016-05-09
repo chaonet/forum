@@ -1,19 +1,18 @@
 # coding: utf-8
 
-from django.shortcuts import render,redirect
-from django.core.urlresolvers import reverse
-from django.contrib import messages
-from django.http import HttpResponse
-
-# Create your views here.
 import uuid
 import datetime
-from django.contrib.auth.models import User
-from models import ActivateCode
+
+from django.shortcuts import render,redirect
+from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
+from django.contrib import messages
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+
+from models import ActivateCode
 
 def register(request):
-
     if request.method == "GET":
         return render(request, "usercenter_register.html")
     else:

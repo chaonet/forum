@@ -3,10 +3,9 @@
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib import messages
 
-# Create your views here.
-from django.contrib.auth.models import User
 from block.models import Block
 from models import Article
 
