@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'block',
     'article',
     'usercenter',
+    'comment',
 ]
 
 MIDDLEWARE_CLASSES = [
