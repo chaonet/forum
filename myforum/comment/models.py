@@ -12,7 +12,7 @@ class Comment(models.Model):
 	block = models.ForeignKey(Block, verbose_name=u"所属版块")
 	article = models.ForeignKey(Article, verbose_name=u"所属文章")
 	owner = models.ForeignKey(User, verbose_name=u"评论者")
-	content = models.CharField(u"内容", max_length=10000)
+	content = models.TextField(u"内容", max_length=10000)
 	status = models.IntegerField(u"状态", choices=((0,u"普通"), (-1,u"删除")), default=0)
 	to_comment_id = models.IntegerField(u'回复评论', default=0)
 

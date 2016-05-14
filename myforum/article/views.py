@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 
 from block.models import Block
+from comment.models import Comment
 from models import Article
 
 def article_list(request,block_id):
@@ -61,4 +62,29 @@ def article_create(request,block_id):
 def article_detail(request,article_id):
     article_id = int(article_id)
     article = Article.objects.get(id=article_id)
-    return render(request, "article_detail.html", {"article":article})
+    # return render(request, "article_detail.html", {"article":article})
+
+    comments = Comment.objects.filter(article=article).order_by("-last_update_timestamp")
+    comment_page_no = int(request.GET.get('comment_page_no','1'))
+    p = Paginator(comments, 1)
+    if comment_page_no < 0:
+        comment_page_no = 1
+    if comment_page_no > p.num_pages:
+        comment_page_no = p.num_pages
+    page_list = [i for i in range(comment_page_no - 5, comment_page_no + 6) if i > 0 and i <= p.num_pages]
+    page = p.page(comment_page_no)
+    previous_link = page_list[0] - 1
+    next_link = page_list[-1] + 1
+    first_link = page_list[0] - 2
+    last_link = page_list[-1] + 2
+    return render(request, 'article_detail.html',
+                  {"article":article, "comments":page.object_list,
+                   "has_previous":previous_link>0, "has_next":next_link<=p.num_pages,
+                   "has_first":first_link>0, "has_last":last_link<=p.num_pages,
+                   "previous_link":previous_link,
+                   "next_link":next_link,
+                   "current_no":comment_page_no,
+                   "pages_num":p.num_pages,
+                   "page_list":page_list
+                  }
+                 )
