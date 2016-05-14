@@ -8,5 +8,6 @@ class CommentAdmin(admin.ModelAdmin):
 					"create_timestamp", "last_update_timestamp"
 				   )
 	list_filter = ("block",)
+	search_fields = ["content",]
 
 admin.site.register(Comment, CommentAdmin)
