@@ -8,7 +8,7 @@ def paginator(lists, page_no, per_page_num=1):
         page_no = 1
     if page_no > p.num_pages:
         page_no = p.num_pages
-    page_list = [i for i in range(page_no - 5, page_no + 6) if i > 0 and i <= p.num_pages]
+    page_list = [i for i in range(page_no - 4, page_no + 5) if i > 0 and i <= p.num_pages]
     page = p.page(page_no)
     previous_link = page_list[0] - 1
     next_link = page_list[-1] + 1

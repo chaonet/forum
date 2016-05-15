@@ -14,11 +14,13 @@
                 </li>
                 {% endif %}
 
-                {% if pagination.has_next %}
+                {% if pagination.pages_num > 1 %}
                   {% for i in pagination.page_list %}
                     <li {% if i == pagination.current_no %} class="active" {% endif %}><a href="?{{ param_name }}={{ i }}">{{ i }}</a></li>
                   {% endfor %}
+                {% endif %}
 
+                {% if pagination.has_next %}
                   <li>
                     <a href="?{{ param_name }}={{ pagination.next_link }}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
