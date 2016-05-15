@@ -48,7 +48,7 @@ def article_detail(request,article_id):
     article = Article.objects.get(id=article_id)
     # return render(request, "article_detail.html", {"article":article})
 
-    comments = Comment.objects.filter(article=article).order_by("-last_update_timestamp")
+    comments = Comment.objects.filter(article=article).order_by("last_update_timestamp")
     comment_page_no = int(request.GET.get('comment_page_no','1'))
     page = paginator(comments, comment_page_no)
     return render(request, 'article_detail.html', {"article":article, 'pagination':page})

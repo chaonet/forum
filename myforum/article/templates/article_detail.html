@@ -35,5 +35,31 @@
 	        </table>
 
           {% include "component/paginator.html" with param_name="comment_page_no" %}
-          
+
+          {% if user.is_authenticated %}
+          <form >
+            <div class="form-group">
+              <label for="content">内容</label>
+              <textarea class="form-control" rows="5" name="content" id="commentContent" ></textarea>
+            </div>
+            <button type="submit" class="btn btn-default" id="commentBtn">发表</button>
+          </form>
+          {% endif %}
+
+              <script type="text/javascript">
+              $(document).ready(function(){
+               $("#commentBtn").click(function(){
+                var article_id = {{ article.id }};
+                var to_comment_id = 0;
+                var comment = $("#commentContent").val();
+                var pages_num = {{ pagination.pages_num }};
+                var param = {"article_id":article_id, "to_comment_id":to_comment_id, "content":comment};
+                $.post("{% url 'comment_create' %}", param, function(){
+                 $("#commentContent").val("");
+                 window.location.href = "{% url 'article_detail' article.id %}?comment_page_no=" + (pages_num + 1);
+                });
+               })
+              })
+              </script>
+
           {% endblock %}
