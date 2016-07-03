@@ -21,11 +21,19 @@
             </div>
 
             {% for comment in pagination.per_page_list %}
-            <div class="row">
+            <div class="row" {% if forloop.last %} id="lastComment" {% endif %}>
               <div class="col-md-3">
                 作者: {{ comment.owner }}<br />
               </div>
               <div class="col-md-7">
+                {% if comment.to_comment %}
+                  {% with comment.to_comment as to_comment %}
+                    <blockquote>
+                      {{ to_comment.owner }} 发表于: {{ to_comment.last_update_timestamp|date:"Y-m-d P" }}
+                      <p class="lead">{{ to_comment.content | linebreaksbr }}</p>
+                    </blockquote>
+                  {% endwith %}
+                {% endif %}
                 发表于: {{ comment.last_update_timestamp|date:"Y-m-d P" }}
                 <p class="lead">{{ comment.content | linebreaksbr }}</p>
               </div>
@@ -56,17 +64,19 @@
 
               <script type="text/javascript">
               $(document).ready(function(){
-
+               if (window.location.href.indexOf("golast") > 0){
+                 window.location.href = window.location.href + "#lastComment";
+               }
+               var to_comment_id = 0;
 
                $("#commentBtn").click(function(){
                 var article_id = {{ article.id }};
-                var to_comment_id = 0;
                 var comment = $("#commentContent").val();
                 var pages_num = {{ pagination.pages_num }};
                 var param = {"article_id":article_id, "to_comment_id":to_comment_id, "content":comment};
                 $.post("{% url 'comment_create' %}", param, function(){
                  $("#commentContent").val("");
-                 window.location.href = "{% url 'article_detail' article.id %}?comment_page_no=" + (pages_num + 1);
+                 window.location.href = "{% url 'article_detail' article.id %}?comment_page_no=" + (pages_num + 1) + "&golast=1";
                 });
                });
 
