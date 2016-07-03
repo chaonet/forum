@@ -1,7 +1,11 @@
+# coding: utf-8
+
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
 from models import Comment
 from article.models import Article
+from message.models import UserMessage
 from utils.response import json_response
 
 @login_required
@@ -18,4 +22,15 @@ def comment_create(request):
     				  to_comment_id=to_comment_id
     				 )
     comment.save()
+    if to_comment_id == 0:
+        new_message = UserMessage(owner=article.owner, 
+                                  content=u"有人评论了您的文章 %s" % article.title, 
+                                  link=reverse("article_detail", args=[article.id])
+                                 )
+    else:
+        new_message = UserMessage(owner=comment.to_comment.owner, 
+                                  content=u"有人评论了您的评论 %s" % comment.to_comment.content[:30], 
+                                  link=reverse("article_detail", args=[article.id])
+                                 )
+    new_message.save()
     return json_response({})
