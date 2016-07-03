@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+          {% block content %}
+          
+  		    <ul class="breadcrumb">
+  		      <li><a href={% url 'block_list' %}>首页</a></li>
+            <li><a href={% url 'article_list' article.block.id %}>{{ article.block.name }}</a></li>
+            <li><a href={% url 'article_detail' article.id %}>{{ article.title }}</a></li>
+  		    </ul>
+          
+  		    <table class="table table-bordered">
+            <div class="row">
+              <div class="col-md-3">
+                作者: {{ article.owner }}<br />
+              </div>
+              <div class="col-md-9">
+                发表于: {{ article.last_update_timestamp|date:"Y-m-d P" }}
+                <h4>标题: {{ article.title }}</h4>  
+                <p class="lead">{{ article.content | linebreaksbr }}</p>
+              </div>
+            </div>
+
+            <div class="row" id="lastComment">
+              <div class="col-md-3">
+                作者: {{ comment.owner }}<br />
+              </div>
+              <div class="col-md-7" id={{ comment.id }}>
+                {% if comment.to_comment %}
+                  {% with comment.to_comment as to_comment %}
+                    <blockquote>
+                      {{ to_comment.owner }} 发表于: {{ to_comment.last_update_timestamp|date:"Y-m-d P" }}
+                      <p class="lead">{{ to_comment.content | linebreaksbr }}</p>
+                    </blockquote>
+                  {% endwith %}
+                {% endif %}
+                发表于: {{ comment.last_update_timestamp|date:"Y-m-d P" }}
+                <p class="lead">{{ comment.content | linebreaksbr }}</p>
+              </div>
+              {% if user.is_authenticated %}
+              <div class="col-md-2">
+                <a href="#commentContent" class="btn btn-primary" id="subCommentBtn"
+                  data-comment-id={{comment.id}} data-owner={{comment.owner}}>
+                  回复
+                </a>
+              </div>
+              {% endif %}
+            </div>
+
+	        </table>
+
+          {% include "component/paginator.html" with param_name="comment_page_no" %}
+
+          {% if user.is_authenticated %}
+          <form >
+            <div class="form-group">
+              <label for="content">内容</label>
+              <textarea class="form-control" rows="5" name="content" id="commentContent"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="commentBtn">发表</button>
+          </form>
+          {% endif %}
+
+              <script type="text/javascript">
+              $(document).ready(function(){
+               if (window.location.href.indexOf("golast") > 0){
+                 window.location.href = window.location.href + "#lastComment";
+               }
+               var to_comment_id = 0;
+
+               $("#commentBtn").click(function(){
+                var article_id = {{ article.id }};
+                var comment = $("#commentContent").val();
+                var pages_num = {{ pagination.pages_num }};
+                var param = {"article_id":article_id, "to_comment_id":to_comment_id, "content":comment};
+                $.post("{% url 'comment_create' %}", param, function(){
+                 $("#commentContent").val("");
+                 window.location.href = "{% url 'article_detail' article.id %}?comment_page_no=" + (pages_num + 1) + "&golast=1";
+                });
+               });
+
+              $("#subCommentBtn").click(function(e){
+                var btn = $(e.target);
+                to_comment_id = parseInt(btn.attr("data-comment-id"));
+                $("#commentContent").attr("placeholder", "回复: " + btn.attr("data-owner"));
+                $("#commentContent").focus();
+                return false;
+              });
+
+              });
+              </script>
+
+          {% endblock %}

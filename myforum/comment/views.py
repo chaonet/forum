@@ -23,14 +23,15 @@ def comment_create(request):
     				 )
     comment.save()
     if to_comment_id == 0:
-        new_message = UserMessage(owner=article.owner, 
-                                  content=u"有人评论了您的文章 %s" % article.title, 
-                                  link=reverse("article_detail", args=[article.id])
-                                 )
+      owner=article.owner
+      content=u"有人评论了您的文章 %s" % article.title
     else:
-        new_message = UserMessage(owner=comment.to_comment.owner, 
-                                  content=u"有人评论了您的评论 %s" % comment.to_comment.content[:30], 
-                                  link=reverse("article_detail", args=[article.id])
-                                 )
+      owner=comment.to_comment.owner
+      content=u"有人评论了您的评论 %s" % comment.to_comment.content[:30]
+    
+    new_message = UserMessage(owner=owner, 
+                              content=content, 
+                              link=reverse("detail_message", args=[int(article_id), int(comment.id)])
+                              )
     new_message.save()
     return json_response({})

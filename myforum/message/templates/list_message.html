@@ -5,7 +5,7 @@
 			<ul class="list-group">
 			  {% for unread in unread_message %}
 			    <li class="list-group-item">
-			      <a href={{ unread.link }}>{{ unread.content }}</a>
+			      <a href={% url "read_message" unread.id %}>{{ unread.content }}</a>
 			    </li>
 			  {% endfor %}
 			</ul>
