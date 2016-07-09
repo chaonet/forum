@@ -18,6 +18,8 @@ from django.contrib import admin
 
 from block.views import block_list
 
+admin.site.disable_action('delete_selected')
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', block_list,name='block_list'),
