@@ -2,6 +2,7 @@
 
 import uuid
 import datetime
+import os
 
 from django.shortcuts import render,redirect
 from django.core.urlresolvers import reverse
@@ -9,6 +10,7 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from models import ActivateCode
 
@@ -51,4 +53,20 @@ def activate(request,new_code):
 		return HttpResponse(u'激活成功，请登录')
 	else:
 		return HttpResponse(u'激活失败')
+
+@login_required
+def upload_avatar(request):
+    if request.method == 'GET':
+        return render(request, "upload_avatar.html")
+    else:
+        profile = request.user.userprofile
+        avatar_file = request.FILES.get("avatar", None)
+        file_path = os.path.join("/Users/chao/userres/avatar", avatar_file.name)
+        with open(file_path, "wb+") as avatar:
+            for chunk in avatar_file.chunks():
+                avatar.write(chunk)
+        url = "http://0.0.0.0:9988/avatar/%s" % avatar_file.name
+        profile.avatar = url
+        profile.save()
+        return redirect("/")
 

@@ -17,4 +17,4 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	sex = models.IntegerField(u"性别", choices=((0,u"男"),(-1,u"女")), default=0)
 	birthday = models.DateTimeField(u"生日",null=True,blank=True)
-
+	avatar = models.CharField(u"头像",max_length=300,blank=True)
