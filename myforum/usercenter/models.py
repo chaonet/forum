@@ -12,3 +12,9 @@ class ActivateCode(models.Model):
 
 	create_timestamp = models.DateTimeField(u"创建时间", auto_now_add=True)
 	last_update_timestamp = models.DateTimeField(u"最后更新时间", auto_now=True)
+
+class UserProfile(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	sex = models.IntegerField(u"性别", choices=((0,u"男"),(-1,u"女")), default=0)
+	birthday = models.DateTimeField(u"生日",null=True,blank=True)
+
