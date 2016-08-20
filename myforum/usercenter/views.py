@@ -65,9 +65,18 @@ def upload_avatar(request):
         avatar_file = request.FILES.get("avatar", None)
         print avatar_file.size
         file_path = os.path.join("/Users/chao/userres/avatar", avatar_file.name)
+
+        # 避免头像重名，进行检测，如果冲突，改名
+        i = 0
+        while os.path.exists(file_path):
+            file_path = os.path.join("/Users/chao/userres/avatar", str(i) + avatar_file.name)
+            i += 1
+
         with open(file_path, "wb+") as avatar:
             for chunk in avatar_file.chunks():
                 avatar.write(chunk)
+
+        # 限制头像文件的大小，如果过大，用 pillow 压缩保存
         if avatar_file.size > 186025:
             THUMB_SIZE = 500,300
             image = Image.open(file_path)
