@@ -12,6 +12,8 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+from PIL import Image
+
 from models import ActivateCode
 
 def register(request):
@@ -61,10 +63,17 @@ def upload_avatar(request):
     else:
         profile = request.user.userprofile
         avatar_file = request.FILES.get("avatar", None)
+        print avatar_file.size
         file_path = os.path.join("/Users/chao/userres/avatar", avatar_file.name)
         with open(file_path, "wb+") as avatar:
             for chunk in avatar_file.chunks():
                 avatar.write(chunk)
+        if avatar_file.size > 186025:
+            THUMB_SIZE = 500,300
+            image = Image.open(file_path)
+            image.thumbnail(THUMB_SIZE, Image.ANTIALIAS)
+            image.save(file_path)
+
         url = "http://0.0.0.0:9988/avatar/%s" % avatar_file.name
         profile.avatar = url
         profile.save()
